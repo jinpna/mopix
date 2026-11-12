@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Monday · Flow Local Bridge",
+  "version": "2.0.2",
+  "description": "Kết nối một tab Google Flow với Monday trên máy; không đọc cookie hay mật khẩu.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "downloads"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Kết nối Monday với tab Flow"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://flow.google.com/*",
+        "https://labs.google/fx/tools/flow*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://localhost:3001/*",
+        "http://127.0.0.1:3001/*"
+      ],
+      "js": [
+        "local-pair.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
